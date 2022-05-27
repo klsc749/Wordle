@@ -4,6 +4,7 @@ public class GameManager {
     private static GameManager instance;
     private String answer = "APPLE";
     private WordlePanel wPanel;
+    private Wordle wordle;
     private int currentRow = 0;
     private int currentCol = -1;
 
@@ -12,8 +13,9 @@ public class GameManager {
 
     }
 
-    public void init(WordlePanel wPanel){
+    public void init(WordlePanel wPanel, Wordle wordle){
         this.wPanel = wPanel;
+        this.wordle = wordle;
     }
 
     public static GameManager getInstance(){
@@ -25,6 +27,8 @@ public class GameManager {
     }
 
     public void handleInput(char c) throws IOException{
+        wordle.setTipAndType("Please input words :)", Wordle.TipType.HINT);
+
         if(c == '\n'){
             if(currentCol == 4){
                 if(checkWord("")){
@@ -33,11 +37,11 @@ public class GameManager {
                     currentCol = -1;
                 }
                 else{
-                    //Todo: word is wrong.
+                    wordle.setTipAndType("Please input correct word", Wordle.TipType.WARNING);
                 }
             }
             else{
-                //Todo: please input 5 letters
+                wordle.setTipAndType("Please input 5 letters", Wordle.TipType.WARNING);
             }
         }
         else if(c == '\b'){
@@ -46,19 +50,21 @@ public class GameManager {
                 currentCol--;
             }
             else{
-                //Todo : you can't delete
+                wordle.setTipAndType("You can't delete now", Wordle.TipType.WARNING);
             }
         }
-        else{
+        else if(c >= 'A' && c <= 'Z'){
             if(currentCol > 3){
-                //You can't more
+                wordle.setTipAndType("You cant't input more letters", Wordle.TipType.WARNING);
             }
             else{
                 currentCol++;
                 wPanel.getCharacterLabel(currentRow, currentCol).setText(Character.toString(c));
             }
         }
-        System.out.println(currentRow + "," + currentCol);
+        else{
+            wordle.setTipAndType("Please input letters", Wordle.TipType.WARNING);
+        }
     }
 
     private boolean checkWord(String word){

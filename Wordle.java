@@ -3,13 +3,14 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Wordle extends JFrame{
-    public static final int WINDOW_WIDTH = 600;
-    public static final int WINDOW_HEIGHT = 600;
+    public static final int WINDOW_WIDTH = 800;
+    public static final int WINDOW_HEIGHT = 1000;
 
     private WordlePanel wPanel;
+    private JLabel tipJLabel;
 
     public Wordle(){
-        super();
+        super("WOREDLE");
         initWindow();
     }
 
@@ -20,13 +21,12 @@ public class Wordle extends JFrame{
 
     private void initWindow(){
         setLayout();
-        GameManager.getInstance().init(wPanel);
+        GameManager.getInstance().init(wPanel, this);
 
         this.addKeyListener(KeyEventFactory.keyboardListener());
         this.setVisible(true);
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setWindowCenter();
     }
 
     private void setWindowCenter(){
@@ -38,14 +38,42 @@ public class Wordle extends JFrame{
     }
 
     private void setLayout(){
-        JLabel welcomeJLabel = new JLabel("Welcome to Wordle :-)", SwingConstants.CENTER);
-        welcomeJLabel.setBounds(0, 0, Wordle.WINDOW_WIDTH, Wordle.WINDOW_HEIGHT / 7);
+        this.tipJLabel = new JLabel("Please input words :)", SwingConstants.CENTER);
+        this.tipJLabel.setBounds(0, 0, Wordle.WINDOW_WIDTH, Wordle.WINDOW_HEIGHT / 40);
+        this.tipJLabel.setFont(new Font("宋体", Font.BOLD, Wordle.WINDOW_HEIGHT / 50));
 
+        this.wPanel = new WordlePanel();
+        this.wPanel.setLocation((Wordle.WINDOW_WIDTH - this.wPanel.getSize().width) / 2, this.tipJLabel.getSize().height + 50);
 
-        wPanel = new WordlePanel();
-        wPanel.setLocation((Wordle.WINDOW_WIDTH - wPanel.getSize().width) / 2, 0);
+        KeyboardPanel keyboardPanel = new KeyboardPanel();
+        keyboardPanel.setLocation((Wordle.WINDOW_WIDTH - keyboardPanel.getSize().width) / 2, this.wPanel.getLocation().y + this.wPanel.getSize().height + 50);
 
-        this.getContentPane().add(welcomeJLabel);
-        this.getContentPane().add(wPanel);
+        this.setLayout(null);
+        this.getContentPane().add(this.tipJLabel);
+        this.getContentPane().add(this.wPanel);
+        this.getContentPane().add(keyboardPanel);
+        this.setFocusable(true);
+        setWindowCenter();
+    }
+
+    public JLabel getTipJLabel(){
+        return this.tipJLabel;
+    }
+
+    public enum TipType{
+        HINT,
+        WARNING
+    }
+
+    public void setTipAndType(String tip, TipType tipType){
+        this.tipJLabel.setText(tip);
+        switch (tipType) {
+            case WARNING:
+                this.tipJLabel.setForeground(new Color(192, 158, 3));
+                break;
+            default:
+                this.tipJLabel.setForeground(Color.BLACK);
+                break;
+        }
     }
 }

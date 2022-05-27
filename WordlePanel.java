@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class WordlePanel extends JPanel{
-    private final int WIDTH = 400;
+    private final int WIDTH = 500;
     private final int ROWS = 6;
     private final int COLS = 5;
     private final int GAP = 10; 
