@@ -4,7 +4,7 @@ public class GameManager {
     private WordLists wordLists;
     private WordlePanel wPanel;
     private KeyboardPanel keyboardPanel;
-    private Wordle wordle;
+    private WordleWindow wordleWindow;
     private int currentRow = 0;
     private int currentCol = -1;
     public enum GameMode{
@@ -17,15 +17,19 @@ public class GameManager {
 
     }
 
-    public void init(WordlePanel wPanel,KeyboardPanel keyboardPanel ,Wordle wordle){
-        this.wPanel = wPanel;
-        this.wordle = wordle;
-        this.keyboardPanel = keyboardPanel;
+    public void play(){
+        init();
+    }
+
+    public void init(){
+        this.wordleWindow = new WordleWindow();
+        this.wPanel = this.wordleWindow.getWordlePanel();
+        this.keyboardPanel = this.wordleWindow.getKeyboardPanel();
         wordLists = new WordLists(GameMode.EASY);
         this.answer = wordLists.getAnswer();
         System.out.println(answer);
     }
-
+    
     public static GameManager getInstance(){
         if(GameManager.instance == null){
             GameManager.instance = new GameManager();
@@ -35,7 +39,7 @@ public class GameManager {
     }
 
     public void handleInput(char c){
-        wordle.setTipAndType("Please input words :)", Wordle.TipType.HINT);
+        wordleWindow.setTipAndType("Please input words :)", WordleWindow.TipType.HINT);
 
         if(c == '\n'){
             if(currentCol == 4){
@@ -43,35 +47,28 @@ public class GameManager {
                     compareWithAnswer();
                     currentRow++;
                     currentCol = -1;
+                }else{
+                    wordleWindow.setTipAndType("Please input correct word", WordleWindow.TipType.WARNING);
                 }
-                else{
-                    wordle.setTipAndType("Please input correct word", Wordle.TipType.WARNING);
-                }
+            }else{
+                wordleWindow.setTipAndType("Please input 5 letters", WordleWindow.TipType.WARNING);
             }
-            else{
-                wordle.setTipAndType("Please input 5 letters", Wordle.TipType.WARNING);
-            }
-        }
-        else if(c == '\b'){
+        }else if(c == '\b'){
             if(currentCol != -1){
                 wPanel.getCharacterLabel(currentRow, currentCol).setLabelState(Gameconfiguration.CharState.EMPTY);
                 currentCol--;
+            }else{
+                wordleWindow.setTipAndType("You can't delete now", WordleWindow.TipType.WARNING);
             }
-            else{
-                wordle.setTipAndType("You can't delete now", Wordle.TipType.WARNING);
-            }
-        }
-        else if(c >= 'A' && c <= 'Z'){
+        }else if(c >= 'A' && c <= 'Z'){
             if(currentCol > 3){
-                wordle.setTipAndType("You cant't input more letters", Wordle.TipType.WARNING);
-            }
-            else{
+                wordleWindow.setTipAndType("You cant't input more letters", WordleWindow.TipType.WARNING);
+            }else{
                 currentCol++;
                 wPanel.getCharacterLabel(currentRow, currentCol).setText(Character.toString(c));
             }
-        }
-        else{
-            wordle.setTipAndType("Please input letters", Wordle.TipType.WARNING);
+        }else{
+            wordleWindow.setTipAndType("Please input letters", WordleWindow.TipType.WARNING);
         }
     }
 

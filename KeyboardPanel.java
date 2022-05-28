@@ -2,11 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 public class KeyboardPanel extends JPanel {
-    public static final int KEYBOARD_WIDTH = Wordle.WINDOW_WIDTH * 5 / 6;
-    public static final int KEYBOARD_HEIGHT = Wordle.WINDOW_HEIGHT / 9; 
+    public static final int KEYBOARD_WIDTH = Gameconfiguration.WINDOW_WIDTH * 5 / 6;
+    public static final int KEYBOARD_HEIGHT = Gameconfiguration.WINDOW_HEIGHT / 9; 
     private JPanel[] keys;
     private final int[] KEYS_NUM_EACH_ROW = {10, 9, 9};
-    private final int KEYS_GAP = 1;
+    private final int KEYS_GAP = 2;
     private final String[] KEYS_NAME = {
         "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P",
         "A", "S", "D", "F", "G", "H", "J", "K", "L",

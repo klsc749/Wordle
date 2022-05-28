@@ -1,5 +1,7 @@
 import java.awt.*;
 public class Gameconfiguration {
+    public static final int WINDOW_WIDTH = 800;
+    public static final int WINDOW_HEIGHT = 1000;
 
     public static final Color GRAY = new Color(120,124,126);
     public static final Color YELLOW = new Color(201,180,88);
@@ -15,6 +17,6 @@ public class Gameconfiguration {
     }
 
     private Gameconfiguration(){
-        
+
     }
 }
