@@ -1,21 +1,29 @@
-import java.io.*;
-
 public class GameManager {
     private static GameManager instance;
-    private String answer = "APPLE";
+    private String answer;
+    private WordLists wordLists;
     private WordlePanel wPanel;
+    private KeyboardPanel keyboardPanel;
     private Wordle wordle;
     private int currentRow = 0;
     private int currentCol = -1;
-
+    public enum GameMode{
+        EASY,
+        MEDIUM,
+        HARD
+    }
 
     private GameManager(){
 
     }
 
-    public void init(WordlePanel wPanel, Wordle wordle){
+    public void init(WordlePanel wPanel,KeyboardPanel keyboardPanel ,Wordle wordle){
         this.wPanel = wPanel;
         this.wordle = wordle;
+        this.keyboardPanel = keyboardPanel;
+        wordLists = new WordLists(GameMode.EASY);
+        this.answer = wordLists.getAnswer();
+        System.out.println(answer);
     }
 
     public static GameManager getInstance(){
@@ -26,12 +34,12 @@ public class GameManager {
         return GameManager.instance;
     }
 
-    public void handleInput(char c) throws IOException{
+    public void handleInput(char c){
         wordle.setTipAndType("Please input words :)", Wordle.TipType.HINT);
 
         if(c == '\n'){
             if(currentCol == 4){
-                if(checkWord("")){
+                if(checkWord()){
                     compareWithAnswer();
                     currentRow++;
                     currentCol = -1;
@@ -46,7 +54,7 @@ public class GameManager {
         }
         else if(c == '\b'){
             if(currentCol != -1){
-                wPanel.getCharacterLabel(currentRow, currentCol).setLabelState(CharacterLabel.LabelState.EMPTY);
+                wPanel.getCharacterLabel(currentRow, currentCol).setLabelState(Gameconfiguration.CharState.EMPTY);
                 currentCol--;
             }
             else{
@@ -67,28 +75,32 @@ public class GameManager {
         }
     }
 
-    private boolean checkWord(String word){
-
-        return true;
+    private boolean checkWord(){
+        String word = "";
+        for(int i = 0; i < 5; i++){
+            word += wPanel.getCharacterLabel(currentRow, i).getText();
+        }
+        return wordLists.verifyWord(word);
     }
 
     private void compareWithAnswer(){
-        CharacterLabel.LabelState state = CharacterLabel.LabelState.DO_NOT_CONTAIN;
+       Gameconfiguration.CharState state = null;
         
         for(int i = 0; i < 5; i++){
             int index = answer.indexOf(wPanel.getCharacterLabel(currentRow, i).getText());
             if(index == -1){
-                state = CharacterLabel.LabelState.DO_NOT_CONTAIN;
+                state = Gameconfiguration.CharState.DO_NOT_CONTAIN;
             }
             else{
                 if(answer.charAt(i) == wPanel.getCharacterLabel(currentRow, i).getText().toCharArray()[0]){
-                    state = CharacterLabel.LabelState.CONTAIN_AND_RIGHT_POSITION;
+                    state = Gameconfiguration.CharState.CONTAIN_AND_RIGHT_POSITION;
                 }
                 else{
-                    state =  CharacterLabel.LabelState.CONTAIN_BUT_WRONG_POSITION;
+                    state =  Gameconfiguration.CharState.CONTAIN_BUT_WRONG_POSITION;
                 }
             }
             wPanel.getCharacterLabel(currentRow, i).setLabelState(state);
+            keyboardPanel.getKeyButton(wPanel.getCharacterLabel(currentRow, i).getText()).setKeyButtonState(state);;
         }
     }
 }

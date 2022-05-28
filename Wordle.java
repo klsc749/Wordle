@@ -8,6 +8,7 @@ public class Wordle extends JFrame{
 
     private WordlePanel wPanel;
     private JLabel tipJLabel;
+    private KeyboardPanel keyboardPanel;
 
     public Wordle(){
         super("WOREDLE");
@@ -21,7 +22,7 @@ public class Wordle extends JFrame{
 
     private void initWindow(){
         setLayout();
-        GameManager.getInstance().init(wPanel, this);
+        GameManager.getInstance().init(wPanel, keyboardPanel,this);
 
         this.addKeyListener(KeyEventFactory.keyboardListener());
         this.setVisible(true);
@@ -45,7 +46,7 @@ public class Wordle extends JFrame{
         this.wPanel = new WordlePanel();
         this.wPanel.setLocation((Wordle.WINDOW_WIDTH - this.wPanel.getSize().width) / 2, this.tipJLabel.getSize().height + 50);
 
-        KeyboardPanel keyboardPanel = new KeyboardPanel();
+        keyboardPanel = new KeyboardPanel();
         keyboardPanel.setLocation((Wordle.WINDOW_WIDTH - keyboardPanel.getSize().width) / 2, this.wPanel.getLocation().y + this.wPanel.getSize().height + 50);
 
         this.setLayout(null);

@@ -31,11 +31,14 @@ public class KeyboardPanel extends JPanel {
                 KeyButton keyButton = new KeyButton(KEYS_NAME[j]);
                 keyButton.setFocusable(false);
                 keys[i].add(keyButton);
-                keyButtons.put(KEYS_NAME[i], keyButton);
+                keyButtons.put(KEYS_NAME[j], keyButton);
                 keyCount++;
             }
             this.add(keys[i]);
         }
-        int j = 1;
+    }
+
+    public KeyButton getKeyButton(String letter){
+        return keyButtons.get(letter);
     }
 }

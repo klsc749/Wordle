@@ -2,12 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CharacterLabel extends JLabel {
-    public enum LabelState {
-        CONTAIN_AND_RIGHT_POSITION,
-        CONTAIN_BUT_WRONG_POSITION,
-        DO_NOT_CONTAIN,
-        EMPTY
-    }
     
     private static final Color GRAY = new Color(120,124,126);
     private static final Color YELLOW = new Color(201,180,88);
@@ -19,7 +13,7 @@ public class CharacterLabel extends JLabel {
         this.setFont(new Font("宋体", Font.BOLD, 60));
         this.setForeground(Color.WHITE);
         this.setOpaque(true);
-        this.setLabelState(LabelState.EMPTY);
+        this.setLabelState(Gameconfiguration.CharState.EMPTY);
     }
 
     public CharacterLabel(String text){
@@ -27,10 +21,10 @@ public class CharacterLabel extends JLabel {
         this.setFont(new Font("宋体", Font.BOLD, 60));
         this.setForeground(Color.WHITE);
         this.setOpaque(true);
-        this.setLabelState(LabelState.EMPTY);
+        this.setLabelState(Gameconfiguration.CharState.EMPTY);
     }
 
-    public void setLabelState(LabelState state){
+    public void setLabelState(Gameconfiguration.CharState state){
         switch (state) {
             case CONTAIN_AND_RIGHT_POSITION:
                 this.setBackground(CharacterLabel.GREEN);

@@ -1,18 +1,24 @@
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.awt.event.KeyAdapter;
-
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 public class KeyEventFactory {
     public static KeyAdapter keyboardListener(){
         return new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                try {
-                    GameManager.getInstance().handleInput(Character.toUpperCase(e.getKeyChar()));
-                } catch (IOException err) {
-                    err.printStackTrace();
-                }
+                GameManager.getInstance().handleInput(Character.toUpperCase(e.getKeyChar()));
             }
+        };
+    }
+
+    public static ActionListener virtualKeyboardListener(char keyChar){
+        return new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GameManager.getInstance().handleInput(keyChar);              
+            }            
         };
     }
 }
