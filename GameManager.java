@@ -5,13 +5,10 @@ public class GameManager {
     private WordlePanel wPanel;
     private KeyboardPanel keyboardPanel;
     private WordleWindow wordleWindow;
+    private StartWindow startWindow;
     private int currentRow = 0;
     private int currentCol = -1;
-    public enum GameMode{
-        EASY,
-        MEDIUM,
-        HARD
-    }
+    private Gameconfiguration.GameMode gameMode;
 
     private GameManager(){
 
@@ -22,12 +19,35 @@ public class GameManager {
     }
 
     public void init(){
+        showStartWindow();
+    }
+
+    public void showWordleWindow(){
+        createWordleWindow();
+        this.wordleWindow.setVisible(true);
+    }
+
+    public void showStartWindow(){
+        createStartWindow();
+        this.startWindow.setVisible(true);
+    }
+
+    public void closeStartWindow(){
+        this.startWindow.dispose();
+    }
+
+    private void createWordleWindow(){
         this.wordleWindow = new WordleWindow();
         this.wPanel = this.wordleWindow.getWordlePanel();
         this.keyboardPanel = this.wordleWindow.getKeyboardPanel();
-        wordLists = new WordLists(GameMode.EASY);
+        wordLists = new WordLists(this.gameMode);
         this.answer = wordLists.getAnswer();
-        System.out.println(answer);
+        this.wordleWindow.dispose();
+    }
+
+    private void createStartWindow(){
+        this.startWindow = new StartWindow();
+        this.startWindow.dispose();
     }
     
     public static GameManager getInstance(){
@@ -98,6 +118,23 @@ public class GameManager {
             }
             wPanel.getCharacterLabel(currentRow, i).setLabelState(state);
             keyboardPanel.getKeyButton(wPanel.getCharacterLabel(currentRow, i).getText()).setKeyButtonState(state);;
+        }
+    }
+
+    public void setGameMode(String gameMode){
+        switch (gameMode) {
+            case "EASY":
+                this.gameMode = Gameconfiguration.GameMode.EASY;
+                break;
+            case "MEDIUM":
+                this.gameMode = Gameconfiguration.GameMode.MEDIUM;
+                break;
+            case "HARD":
+                this.gameMode = Gameconfiguration.GameMode.HARD;
+                break;
+            default:
+                this.gameMode = Gameconfiguration.GameMode.EASY;
+                break;
         }
     }
 }

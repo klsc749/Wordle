@@ -1,7 +1,10 @@
 import java.awt.*;
 public class Gameconfiguration {
-    public static final int WINDOW_WIDTH = 800;
-    public static final int WINDOW_HEIGHT = 1000;
+    public static final int WORDLE_WINDOW_WIDTH = 800;
+    public static final int WORDLE_WINDOW_HEIGHT = 1000;
+
+    public static final int START_WINDOW_WIDTH = 400;
+    public static final int START_WINDOW_HEIGHT = 500;
 
     public static final Color GRAY = new Color(120,124,126);
     public static final Color YELLOW = new Color(201,180,88);
@@ -14,6 +17,12 @@ public class Gameconfiguration {
         CONTAIN_BUT_WRONG_POSITION,
         DO_NOT_CONTAIN,
         EMPTY
+    }
+
+    public enum GameMode{
+        EASY,
+        MEDIUM,
+        HARD
     }
 
     private Gameconfiguration(){

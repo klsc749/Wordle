@@ -11,7 +11,7 @@ public class WordLists {
     private HashSet<String> verifyList = new HashSet<>();
     private String answer;
 
-    public WordLists(GameManager.GameMode gameMode){
+    public WordLists(Gameconfiguration.GameMode gameMode){
         readVerifyList();
         chooseAnswer(gameMode);
     }
@@ -34,7 +34,7 @@ public class WordLists {
         }
     }
 
-    private void chooseAnswer(GameManager.GameMode gameMode){
+    private void chooseAnswer(Gameconfiguration.GameMode gameMode){
         ArrayList<String> wordList = new ArrayList<>();
         String fileName = null;
         switch (gameMode) {
@@ -73,11 +73,5 @@ public class WordLists {
 
     public String getAnswer(){
         return this.answer;
-    }
-    
-    public static void main(String[] args) {
-        WordLists w = new WordLists(GameManager.GameMode.EASY);
-        System.out.println(w.verifyWord("APPLE"));
-        System.out.println(w.getAnswer());
     }
 }
