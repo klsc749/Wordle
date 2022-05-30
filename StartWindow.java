@@ -8,8 +8,9 @@ public class StartWindow extends JFrame{
 
     public StartWindow(){
         super("WORDLE");
-        setLayout();
+        setLayerout();
         this.setVisible(true);
+        this.setResizable(false);
         this.setSize(Gameconfiguration.START_WINDOW_WIDTH, Gameconfiguration.START_WINDOW_HEIGHT);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Toolkit kit = Toolkit.getDefaultToolkit();
@@ -19,7 +20,7 @@ public class StartWindow extends JFrame{
         this.setLocation(screenWidth/2 - Gameconfiguration.START_WINDOW_WIDTH/2, screenHeight/2 - Gameconfiguration.START_WINDOW_HEIGHT/2);
     }
 
-    private void setLayout(){
+    private void setLayerout(){
         this.setLayout(null);
         int currentHeight = 0;
 
@@ -60,8 +61,7 @@ public class StartWindow extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 // TODO add Helper window
                 GameManager.getInstance().setGameMode(difficultLevelComboBox.getItemAt(difficultLevelComboBox.getSelectedIndex()));
-                GameManager.getInstance().closeStartWindow();
-                GameManager.getInstance().showWordleWindow();
+                GameManager.getInstance().play();
             }
             
         });

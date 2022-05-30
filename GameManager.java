@@ -6,6 +6,7 @@ public class GameManager {
     private KeyboardPanel keyboardPanel;
     private WordleWindow wordleWindow;
     private StartWindow startWindow;
+    private ResultWindow resultDialog;
     private int currentRow = 0;
     private int currentCol = -1;
     private Gameconfiguration.GameMode gameMode;
@@ -14,25 +15,50 @@ public class GameManager {
 
     }
 
-    public void play(){
+    public static GameManager getInstance(){
+        if(GameManager.instance == null){
+            GameManager.instance = new GameManager();
+        }
+
+        return GameManager.instance;
+    }
+
+    public void start(){
         init();
     }
 
-    public void init(){
-        showStartWindow();
+    public void play(){
+        closeStartWindow();
+        showWordleWindow();
     }
 
-    public void showWordleWindow(){
+    public void restart(){
+        closeResultDialog();
+        start();
+    }
+
+    private void init(){
+        showStartWindow();
+        currentRow = 0;
+        currentCol = -1;
+    }
+
+
+    private void showWordleWindow(){
         createWordleWindow();
         this.wordleWindow.setVisible(true);
     }
 
-    public void showStartWindow(){
+    private void closeWordleWindow(){
+        this.wordleWindow.dispose();
+    }
+
+    private void showStartWindow(){
         createStartWindow();
         this.startWindow.setVisible(true);
     }
 
-    public void closeStartWindow(){
+    private void closeStartWindow(){
         this.startWindow.dispose();
     }
 
@@ -42,6 +68,7 @@ public class GameManager {
         this.keyboardPanel = this.wordleWindow.getKeyboardPanel();
         wordLists = new WordLists(this.gameMode);
         this.answer = wordLists.getAnswer();
+        System.out.println(this.answer);
         this.wordleWindow.dispose();
     }
 
@@ -49,13 +76,14 @@ public class GameManager {
         this.startWindow = new StartWindow();
         this.startWindow.dispose();
     }
-    
-    public static GameManager getInstance(){
-        if(GameManager.instance == null){
-            GameManager.instance = new GameManager();
-        }
 
-        return GameManager.instance;
+    private void showResultDialog(String result){
+        closeWordleWindow();
+        this.resultDialog = new ResultWindow(result);
+    }
+
+    private void closeResultDialog(){
+        this.resultDialog.dispose();
     }
 
     public void handleInput(char c){
@@ -90,6 +118,10 @@ public class GameManager {
         }else{
             wordleWindow.setTipAndType("Please input letters", WordleWindow.TipType.WARNING);
         }
+
+        if(currentRow == 6){
+            showResultDialog("FAIL");
+        }
     }
 
     private boolean checkWord(){
@@ -101,8 +133,10 @@ public class GameManager {
     }
 
     private void compareWithAnswer(){
-       Gameconfiguration.CharState state = null;
+        Gameconfiguration.CharState state = null;
         
+        int correctCNt = 0;
+
         for(int i = 0; i < 5; i++){
             int index = answer.indexOf(wPanel.getCharacterLabel(currentRow, i).getText());
             if(index == -1){
@@ -111,6 +145,7 @@ public class GameManager {
             else{
                 if(answer.charAt(i) == wPanel.getCharacterLabel(currentRow, i).getText().toCharArray()[0]){
                     state = Gameconfiguration.CharState.CONTAIN_AND_RIGHT_POSITION;
+                    correctCNt++;
                 }
                 else{
                     state =  Gameconfiguration.CharState.CONTAIN_BUT_WRONG_POSITION;
@@ -119,7 +154,12 @@ public class GameManager {
             wPanel.getCharacterLabel(currentRow, i).setLabelState(state);
             keyboardPanel.getKeyButton(wPanel.getCharacterLabel(currentRow, i).getText()).setKeyButtonState(state);;
         }
+
+        if(correctCNt == 5){
+            showResultDialog("SUCCESS");
+        }
     }
+
 
     public void setGameMode(String gameMode){
         switch (gameMode) {
@@ -136,5 +176,9 @@ public class GameManager {
                 this.gameMode = Gameconfiguration.GameMode.EASY;
                 break;
         }
+    }
+
+    public String getAnswer(){
+        return this.answer;
     }
 }

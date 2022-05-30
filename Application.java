@@ -1,6 +1,6 @@
 public class Application {
     public static void main(String[] args) {
-        GameManager.getInstance().play();
+        GameManager.getInstance().start();
     }
 }
 
