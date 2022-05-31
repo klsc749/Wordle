@@ -13,9 +13,10 @@ public class WordleWindow extends JFrame {
 
     private void initWindow(){
         setLayout();
+        this.setResizable(false);
         this.addKeyListener(KeyEventFactory.keyboardListener());
         this.setVisible(true);
-        this.setSize(Gameconfiguration.WORDLE_WINDOW_WIDTH, Gameconfiguration.WORDLE_WINDOW_HEIGHT);
+        this.setSize(GameConfiguration.WORDLE_WINDOW_WIDTH, GameConfiguration.WORDLE_WINDOW_HEIGHT);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
@@ -24,23 +25,23 @@ public class WordleWindow extends JFrame {
         Dimension screenSize = kit.getScreenSize();
         int screenWidth = screenSize.width; 
         int screenHeight = screenSize.height;
-        this.setLocation(screenWidth/2 - Gameconfiguration.WORDLE_WINDOW_WIDTH/2, screenHeight/2 - Gameconfiguration.WORDLE_WINDOW_HEIGHT/2);
+        this.setLocation(screenWidth/2 - GameConfiguration.WORDLE_WINDOW_WIDTH/2, screenHeight/2 - GameConfiguration.WORDLE_WINDOW_HEIGHT/2);
     }
 
     private void setLayout(){
         int currentHeight = 0;
 
         this.tipJLabel = new JLabel("Please input words :)", SwingConstants.CENTER);
-        this.tipJLabel.setBounds(0, OFFSET, Gameconfiguration.WORDLE_WINDOW_WIDTH, Gameconfiguration.WORDLE_WINDOW_HEIGHT / 40);
-        this.tipJLabel.setFont(new Font("宋体", Font.BOLD, Gameconfiguration.WORDLE_WINDOW_HEIGHT / 40));
+        this.tipJLabel.setBounds(0, OFFSET, GameConfiguration.WORDLE_WINDOW_WIDTH, GameConfiguration.WORDLE_WINDOW_HEIGHT / 40);
+        this.tipJLabel.setFont(new Font(GameConfiguration.GAME_FONT, Font.BOLD, GameConfiguration.WORDLE_WINDOW_HEIGHT / 40));
         currentHeight = this.tipJLabel.getSize().height + this.tipJLabel.getLocation().y;
 
         this.wPanel = new WordlePanel();
-        this.wPanel.setLocation((Gameconfiguration.WORDLE_WINDOW_WIDTH - this.wPanel.getSize().width) / 2, currentHeight + OFFSET);
+        this.wPanel.setLocation((GameConfiguration.WORDLE_WINDOW_WIDTH - this.wPanel.getSize().width) / 2, currentHeight + OFFSET);
         currentHeight = this.wPanel.getSize().height + this.wPanel.getLocation().y;
 
         keyboardPanel = new KeyboardPanel();
-        keyboardPanel.setLocation((Gameconfiguration.WORDLE_WINDOW_WIDTH - keyboardPanel.getSize().width) / 2, currentHeight + 4 * OFFSET);
+        keyboardPanel.setLocation((GameConfiguration.WORDLE_WINDOW_WIDTH - keyboardPanel.getSize().width) / 2, currentHeight + 4 * OFFSET);
 
         this.setLayout(null);
         this.getContentPane().add(this.tipJLabel);

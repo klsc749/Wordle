@@ -13,7 +13,7 @@ public class CharacterLabel extends JLabel {
         this.setFont(new Font("宋体", Font.BOLD, 60));
         this.setForeground(Color.WHITE);
         this.setOpaque(true);
-        this.setLabelState(Gameconfiguration.CharState.EMPTY);
+        this.setLabelState(GameConfiguration.CharState.EMPTY);
     }
 
     public CharacterLabel(String text){
@@ -21,10 +21,10 @@ public class CharacterLabel extends JLabel {
         this.setFont(new Font("宋体", Font.BOLD, 60));
         this.setForeground(Color.WHITE);
         this.setOpaque(true);
-        this.setLabelState(Gameconfiguration.CharState.EMPTY);
+        this.setLabelState(GameConfiguration.CharState.EMPTY);
     }
 
-    public void setLabelState(Gameconfiguration.CharState state){
+    public void setLabelState(GameConfiguration.CharState state){
         switch (state) {
             case CONTAIN_AND_RIGHT_POSITION:
                 this.setBackground(CharacterLabel.GREEN);

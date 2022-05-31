@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 public class KeyboardPanel extends JPanel {
-    public static final int KEYBOARD_WIDTH = Gameconfiguration.WORDLE_WINDOW_WIDTH * 6 / 7;
-    public static final int KEYBOARD_HEIGHT = Gameconfiguration.WORDLE_WINDOW_HEIGHT / 7; 
+    public static final int KEYBOARD_WIDTH = GameConfiguration.WORDLE_WINDOW_WIDTH * 6 / 7;
+    public static final int KEYBOARD_HEIGHT = GameConfiguration.WORDLE_WINDOW_HEIGHT / 7; 
     private JPanel[] keys;
     private final int[] KEYS_NUM_EACH_ROW = {10, 9, 9};
     private final int KEYS_GAP = 2;

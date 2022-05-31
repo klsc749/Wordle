@@ -1,13 +1,16 @@
 import java.awt.*;
-public final class Gameconfiguration {
+public final class GameConfiguration {
     public static final int WORDLE_WINDOW_WIDTH = 800;
     public static final int WORDLE_WINDOW_HEIGHT = 1000;
 
     public static final int START_WINDOW_WIDTH = 400;
     public static final int START_WINDOW_HEIGHT = 500;
 
-    public static final int RESULT_DIALOG_WIDTH = 300;
-    public static final int RESULT_DIALOG_HEIGHT = 400;
+    public static final int RESULT_WINDOW_WIDTH = 300;
+    public static final int RESULT_WINDOW_HEIGHT = 400;
+
+    public static final int HELPER_WINDOW_WIDTH = 400;
+    public static final int HELPER_WINDOW_HEIGHT= 500;
 
     public static final Color GRAY = new Color(120,124,126);
     public static final Color YELLOW = new Color(201,180,88);

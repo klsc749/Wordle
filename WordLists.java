@@ -11,7 +11,7 @@ public class WordLists {
     private HashSet<String> verifyList = new HashSet<>();
     private String answer;
 
-    public WordLists(Gameconfiguration.GameMode gameMode){
+    public WordLists(GameConfiguration.GameMode gameMode){
         readVerifyList();
         chooseAnswer(gameMode);
     }
@@ -34,7 +34,7 @@ public class WordLists {
         }
     }
 
-    private void chooseAnswer(Gameconfiguration.GameMode gameMode){
+    private void chooseAnswer(GameConfiguration.GameMode gameMode){
         ArrayList<String> wordList = new ArrayList<>();
         String fileName = null;
         switch (gameMode) {
@@ -73,5 +73,15 @@ public class WordLists {
 
     public String getAnswer(){
         return this.answer;
+    }
+
+    public StringBuilder getTargetWords(String regex){
+        StringBuilder words = new StringBuilder();
+        for (String string : verifyList) {
+            if(string.matches(regex)){
+                words.append(string + "\n");
+            }
+        }
+        return words;
     }
 }

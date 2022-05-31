@@ -9,7 +9,7 @@ public class KeyButton extends JButton {
         super(key);
         this.keyChar = getChar(key);
         this.setFocusable(false);
-        this.setBackground(Gameconfiguration.Key_BUTTON_NOT_PRESS_COLOR);
+        this.setBackground(GameConfiguration.Key_BUTTON_NOT_PRESS_COLOR);
         this.addActionListener(KeyEventFactory.virtualKeyboardListener(keyChar));
     }
 
@@ -25,16 +25,16 @@ public class KeyButton extends JButton {
         }
     }
 
-    public void setKeyButtonState(Gameconfiguration.CharState state){
+    public void setKeyButtonState(GameConfiguration.CharState state){
         switch (state) {
             case CONTAIN_AND_RIGHT_POSITION:
-                this.setBackground(Gameconfiguration.GREEN);
+                this.setBackground(GameConfiguration.GREEN);
                 break;
             case CONTAIN_BUT_WRONG_POSITION:
-                this.setBackground(Gameconfiguration.YELLOW);
+                this.setBackground(GameConfiguration.YELLOW);
                 break;
             default:
-                this.setBackground(Gameconfiguration.Key_BUTTON_NOT_PRESS_COLOR);
+                this.setBackground(GameConfiguration.Key_BUTTON_NOT_PRESS_COLOR);
                 break;
         }
     }

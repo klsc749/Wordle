@@ -6,10 +6,11 @@ public class GameManager {
     private KeyboardPanel keyboardPanel;
     private WordleWindow wordleWindow;
     private StartWindow startWindow;
-    private ResultWindow resultDialog;
+    private ResultWindow resultWindow;
+    private HelperWindow helperWindow;
     private int currentRow = 0;
     private int currentCol = -1;
-    private Gameconfiguration.GameMode gameMode;
+    private GameConfiguration.GameMode gameMode;
 
     private GameManager(){
 
@@ -79,11 +80,19 @@ public class GameManager {
 
     private void showResultDialog(String result){
         closeWordleWindow();
-        this.resultDialog = new ResultWindow(result);
+        this.resultWindow = new ResultWindow(result);
     }
 
     private void closeResultDialog(){
-        this.resultDialog.dispose();
+        this.resultWindow.dispose();
+    }
+
+    public void showHelperWindow(){
+        this.helperWindow = new HelperWindow();
+    }
+
+    private void closeHelperWindow(){
+        this.helperWindow.dispose();
     }
 
     public void handleInput(char c){
@@ -103,7 +112,7 @@ public class GameManager {
             }
         }else if(c == '\b'){
             if(currentCol != -1){
-                wPanel.getCharacterLabel(currentRow, currentCol).setLabelState(Gameconfiguration.CharState.EMPTY);
+                wPanel.getCharacterLabel(currentRow, currentCol).setLabelState(GameConfiguration.CharState.EMPTY);
                 currentCol--;
             }else{
                 wordleWindow.setTipAndType("You can't delete now", WordleWindow.TipType.WARNING);
@@ -133,22 +142,22 @@ public class GameManager {
     }
 
     private void compareWithAnswer(){
-        Gameconfiguration.CharState state = null;
+        GameConfiguration.CharState state = null;
         
         int correctCNt = 0;
 
         for(int i = 0; i < 5; i++){
             int index = answer.indexOf(wPanel.getCharacterLabel(currentRow, i).getText());
             if(index == -1){
-                state = Gameconfiguration.CharState.DO_NOT_CONTAIN;
+                state = GameConfiguration.CharState.DO_NOT_CONTAIN;
             }
             else{
                 if(answer.charAt(i) == wPanel.getCharacterLabel(currentRow, i).getText().toCharArray()[0]){
-                    state = Gameconfiguration.CharState.CONTAIN_AND_RIGHT_POSITION;
+                    state = GameConfiguration.CharState.CONTAIN_AND_RIGHT_POSITION;
                     correctCNt++;
                 }
                 else{
-                    state =  Gameconfiguration.CharState.CONTAIN_BUT_WRONG_POSITION;
+                    state =  GameConfiguration.CharState.CONTAIN_BUT_WRONG_POSITION;
                 }
             }
             wPanel.getCharacterLabel(currentRow, i).setLabelState(state);
@@ -164,21 +173,25 @@ public class GameManager {
     public void setGameMode(String gameMode){
         switch (gameMode) {
             case "EASY":
-                this.gameMode = Gameconfiguration.GameMode.EASY;
+                this.gameMode = GameConfiguration.GameMode.EASY;
                 break;
             case "MEDIUM":
-                this.gameMode = Gameconfiguration.GameMode.MEDIUM;
+                this.gameMode = GameConfiguration.GameMode.MEDIUM;
                 break;
             case "HARD":
-                this.gameMode = Gameconfiguration.GameMode.HARD;
+                this.gameMode = GameConfiguration.GameMode.HARD;
                 break;
             default:
-                this.gameMode = Gameconfiguration.GameMode.EASY;
+                this.gameMode = GameConfiguration.GameMode.EASY;
                 break;
         }
     }
 
     public String getAnswer(){
         return this.answer;
+    }
+
+    public String getSearchResult(String regex){
+        return wordLists.getTargetWords(regex).toString();
     }
 }
