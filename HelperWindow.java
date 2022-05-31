@@ -2,12 +2,28 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * The {@code HelperWindow} class is used to create a helper window that can help player complete the game
+ * @author Wang Xin
+ * @version 1.0
+ */
 public class HelperWindow extends JFrame{
+    /**
+     * Store the offset the components
+     */
     private final int OFFSET = 20;
+    /**
+     * Store the instances of the {@code HelperInputTextField} class
+     */
     private HelperInputTextField[] hTextFields;
+    /**
+     * Store the instance of the {@code JTextField} class that show search results
+     */
     private JTextArea wordsTextArea;
 
+    /**
+     * Set the layout and window property
+     */
     public HelperWindow(){
         super("Helper");
         initLayout();
@@ -16,6 +32,7 @@ public class HelperWindow extends JFrame{
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setVisible(true);
 
+        //set helper window at the left of the wordle window
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screenSize = kit.getScreenSize();
         int screenWidth = screenSize.width; 
@@ -23,12 +40,16 @@ public class HelperWindow extends JFrame{
         this.setLocation(screenWidth/2 - GameConfiguration.WORDLE_WINDOW_WIDTH/2 - GameConfiguration.HELPER_WINDOW_WIDTH, screenHeight/2 - GameConfiguration.HELPER_WINDOW_HEIGHT/2);
     }
 
+    /**
+     * Init the layout
+     */
     private void initLayout()
     {
         int currentHeight = 0;
         hTextFields = new HelperInputTextField[5];
         this.setLayout(null);
 
+        //Add label showing "Wordle Helper"
         JLabel helperLabel = new JLabel("Wordle Hepler", SwingConstants.CENTER);
         helperLabel.setFont(new Font(GameConfiguration.GAME_FONT, Font.PLAIN, GameConfiguration.HELPER_WINDOW_HEIGHT / 12));
         helperLabel.setLocation(0, OFFSET);
@@ -36,6 +57,7 @@ public class HelperWindow extends JFrame{
         this.add(helperLabel);
         currentHeight = helperLabel.getSize().height + helperLabel.getLocation().y;
 
+        //Add JPanel and HelperInputTextFields
         JPanel inputPanel = new JPanel(new GridLayout(1, 4, 5, 0));
         int inputPanelWidth = GameConfiguration.HELPER_WINDOW_WIDTH * 5 / 6;
         inputPanel.setSize(inputPanelWidth , inputPanelWidth / 6);
@@ -49,6 +71,7 @@ public class HelperWindow extends JFrame{
 
         currentHeight = inputPanel.getSize().height + inputPanel.getLocation().y;
 
+        //Add button
         JButton searchButton = new JButton("Search");
         searchButton.setFont(new Font(GameConfiguration.GAME_FONT, Font.PLAIN, GameConfiguration.HELPER_WINDOW_HEIGHT / 20));
         searchButton.setSize(GameConfiguration.HELPER_WINDOW_WIDTH / 3, GameConfiguration.HELPER_WINDOW_HEIGHT / 15);
@@ -70,6 +93,7 @@ public class HelperWindow extends JFrame{
         });
         currentHeight = searchButton.getSize().height + searchButton.getLocation().y;
 
+        //Add JTextArea
         wordsTextArea = new JTextArea();
         wordsTextArea.setEditable(false);
         wordsTextArea.setFont(new Font(GameConfiguration.GAME_FONT, Font.PLAIN, GameConfiguration.HELPER_WINDOW_HEIGHT / 20));

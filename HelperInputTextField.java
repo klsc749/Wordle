@@ -6,7 +6,15 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
+/**
+ * The {@code HelperInputTextField} class is used to get player's input at helper window and limit its length to 1
+ * @author Wang Xin
+ * @version 1.0
+ */
 public class HelperInputTextField extends JTextField{
+  /**
+   * The constructor set the alignment, background color and font
+   */
     public HelperInputTextField(){
         super();
         this.setHorizontalAlignment(SwingConstants.CENTER);
@@ -16,6 +24,9 @@ public class HelperInputTextField extends JTextField{
     }
 }
 
+/**
+ * The {@code LengthRestrictDocument} class is used to limit the length of document 
+ */
 final class LengthRestrictedDocument extends PlainDocument {
 
     private final int limit;
