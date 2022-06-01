@@ -43,14 +43,14 @@ public class StartWindow extends JFrame{
         int currentHeight = 0;
         // Add JLabel
         JLabel wordle = new JLabel("WORDLE", SwingConstants.CENTER);
-        wordle.setFont(new Font(GameConfiguration.GAME_FONT, Font.BOLD, GameConfiguration.START_WINDOW_HEIGHT / 5));
+        wordle.setFont(new Font(GameConfiguration.GAME_FONT, Font.BOLD, GameConfiguration.START_WINDOW_HEIGHT / 7));
         wordle.setSize(GameConfiguration.START_WINDOW_WIDTH, GameConfiguration.START_WINDOW_HEIGHT / 5);
         this.getContentPane().add(wordle);
         currentHeight = wordle.getSize().height + wordle.getLocation().y;
 
         // Add JLabel
         JLabel levelLabel = new JLabel("Difficulty Level", SwingConstants.CENTER);
-        levelLabel.setFont(new Font(GameConfiguration.GAME_FONT, Font.BOLD, GameConfiguration.START_WINDOW_HEIGHT / 25));
+        levelLabel.setFont(new Font(GameConfiguration.GAME_FONT, Font.PLAIN, GameConfiguration.START_WINDOW_HEIGHT / 25));
         levelLabel.setBounds(0, currentHeight + OFFSET * 2, GameConfiguration.START_WINDOW_WIDTH, GameConfiguration.START_WINDOW_HEIGHT / 20);
         currentHeight = levelLabel.getSize().height + levelLabel.getLocation().y;
         this.getContentPane().add(levelLabel);   
