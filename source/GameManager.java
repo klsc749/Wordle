@@ -53,6 +53,8 @@ public class GameManager {
      */
     private GameConfiguration.GameMode gameMode;
 
+    private boolean isEnd = false;
+
     /**
      * The constructor of {@code GameManager} class is private so that {@code GameManager} class can't be instantiated
      */
@@ -102,6 +104,7 @@ public class GameManager {
         showStartWindow();
         currentRow = 0;
         currentCol = -1;
+        isEnd = false;
     }
 
     /**
@@ -224,8 +227,9 @@ public class GameManager {
             wordleWindow.setTipAndType("Please input letters", WordleWindow.TipType.WARNING);
         }
         // if user use 6 chances
-        if(currentRow == 6){
+        if(currentRow == 6 && !isEnd){
             showResultWindow("FAIL");
+            isEnd = true;
         }
     }
 
@@ -269,6 +273,7 @@ public class GameManager {
 
         if(correctCNt == 5){
             showResultWindow("SUCCESS");
+            isEnd = true;
         }
     }
 

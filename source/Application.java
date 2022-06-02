@@ -4,6 +4,10 @@
  * @version 1.0
 */
 public class Application {
+    /**
+     * The entry point of the game
+     * @param args
+     */
     public static void main(String[] args) {
         GameManager.getInstance().start();
     }
