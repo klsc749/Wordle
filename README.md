@@ -31,3 +31,5 @@ java Application
 ```
 
 Or just run the script named [`Wordle.bat`](Wordle.bat).
+
+javadoc -locale en_US Application.java CharacterLabel.java GameConfiguration.java GameManager.java HelperInputTextField.java HelperWindow.java KeyboardPanel.java KeyButton.java KeyEventFactory.java ResultWindow.java StartWindow.java WordlePanel.java WordleWindow.java WordLists.java
