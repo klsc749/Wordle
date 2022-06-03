@@ -51,6 +51,9 @@ public class KeyButton extends JButton {
             case CONTAIN_BUT_WRONG_POSITION:
                 this.setBackground(GameConfiguration.YELLOW);
                 break;
+            case DO_NOT_CONTAIN:
+            this.setBackground(GameConfiguration.GRAY);
+                break;
             default:
                 this.setBackground(GameConfiguration.Key_BUTTON_NOT_PRESS_COLOR);
                 break;
