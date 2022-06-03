@@ -50,7 +50,7 @@ public class HelperWindow extends JFrame{
         this.setLayout(null);
 
         //Add label showing "Wordle Helper"
-        JLabel helperLabel = new JLabel("Wordle Hepler", SwingConstants.CENTER);
+        JLabel helperLabel = new JLabel("Wordle Helper", SwingConstants.CENTER);
         helperLabel.setFont(new Font(GameConfiguration.GAME_FONT, Font.PLAIN, GameConfiguration.HELPER_WINDOW_HEIGHT / 12));
         helperLabel.setLocation(0, OFFSET);
         helperLabel.setSize(GameConfiguration.HELPER_WINDOW_WIDTH, GameConfiguration.HELPER_WINDOW_HEIGHT / 12);

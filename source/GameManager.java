@@ -217,7 +217,7 @@ public class GameManager {
         }// if the input is letter
         else if(c >= 'A' && c <= 'Z'){
             if(currentCol > 3){
-                wordleWindow.setTipAndType("You cant't input more letters", WordleWindow.TipType.WARNING);
+                wordleWindow.setTipAndType("You can't input more letters", WordleWindow.TipType.WARNING);
             }else{
                 currentCol++;
                 wPanel.getCharacterLabel(currentRow, currentCol).setText(Character.toString(c));
